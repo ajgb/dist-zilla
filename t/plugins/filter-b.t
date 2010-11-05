@@ -9,6 +9,7 @@ my @classic = Dist::Zilla::PluginBundle::Classic->bundle_config({
   name    => '@Classic',
   package => 'Dist::Zilla::PluginBundle::Classic',
   payload => { },
+  assembler => _mock_assembler(),
 });
 
 my @filtered = Dist::Zilla::PluginBundle::Filter->bundle_config({
@@ -18,6 +19,7 @@ my @filtered = Dist::Zilla::PluginBundle::Filter->bundle_config({
     bundle => '@Classic',
     remove => [ qw(ManifestSkip PkgVersion) ],
   },
+  assembler => _mock_assembler(),
 });
 
 is(@filtered, @classic - 2, "filtering 2 plugins gets us 2 fewer plugins!");
@@ -35,3 +37,7 @@ my $after_count =
 is($after_count, 0, "...then we removed them");
 
 done_testing;
+
+sub _mock_assembler {
+    return bless {}, 'Dist::Zilla::MVP::Assembler'; 
+}

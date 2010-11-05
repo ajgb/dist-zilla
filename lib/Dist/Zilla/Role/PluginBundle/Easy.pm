@@ -168,6 +168,7 @@ sub add_bundle {
       name    => $self->name . '/' . $bundle,
       package => $package,
       payload => $payload,
+      assembler => $self->assembler,
     })
   );
 }

@@ -52,9 +52,10 @@ sub bundle_config {
   Class::MOP::load_class($bundle);
 
   my @plugins = $bundle->bundle_config({
-    name    => $section->{name}, # not 100% sure about this -- rjbs, 2010-03-06
-    package => $bundle,
-    payload => $config->{bundle} || {},
+    name      => $section->{name}, # not 100% sure about this -- rjbs, 2010-03-06
+    package   => $bundle,
+    payload   => $config->{bundle} || {},
+    assembler => $section->{assembler},
   });
 
   return @plugins unless my $remove = $config->{filter}->{remove};
